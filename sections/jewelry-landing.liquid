@@ -1,0 +1,340 @@
+<section class="jl">
+  {%- assign coll = section.settings.collection -%}
+
+  <!-- ===== HERO ===== -->
+  <div class="jl-slider" aria-label="Hero slider">
+    <nav class="jl-bc" aria-label="breadcrumbs">
+      <a href="{{ routes.root_url }}">Home</a><span class="jl-bc__sep">/</span>
+      <a href="/pages/lookbook">Lookbook</a><span class="jl-bc__sep">/</span>
+      <span>Necklace Stacking</span>
+    </nav>
+
+    <div class="jl-slider__track" id="jlTrack">
+      {%- assign slides = section.blocks | where: 'type', 'slide' -%}
+      {%- for block in slides -%}
+        <div class="jl-slide" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 2600 | image_tag: loading: 'lazy', alt: block.settings.alt }}
+          {%- endif -%}
+          {%- if block.settings.caption != blank -%}
+            <div class="jl-slide__caption">{{ block.settings.caption }}</div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div id="jlDots" class="jl-dots"></div>
+    <button class="jl-slider__nav jl-prev" type="button" aria-label="Previous">←</button>
+    <button class="jl-slider__nav jl-next" type="button" aria-label="Next">→</button>
+  </div>
+
+  <!-- ===== CONTENT WRAPPER ===== -->
+  <div class="jl__inner">
+
+    <!-- ===== OUR JEWELRY ===== -->
+    <section class="jl-about">
+      <div class="jl-diag" aria-hidden="true"></div>
+
+      <div class="jl-about__layout">
+        <div class="jl-about__text">
+          <h2 class="jl-h2">{{ section.settings.about_heading }}</h2>
+          <p class="jl-lead">{{ section.settings.about_copy | newline_to_br }}</p>
+        </div>
+
+        <div class="jl-about__media">
+          {%- assign about_blocks = section.blocks | where: 'type', 'about_image' -%}
+          {%- if about_blocks.size > 0 -%}
+            {%- for block in about_blocks -%}
+              <figure class="jl-about__img" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', alt: block.settings.alt }}
+                {%- endif -%}
+              </figure>
+            {%- endfor -%}
+          {%- else -%}
+            {%- if section.settings.about_img_1 != blank -%}
+              <figure class="jl-about__img">
+                {{ section.settings.about_img_1 | image_url: width: 1600 | image_tag: loading: 'lazy', alt: section.settings.about_img_1_alt }}
+              </figure>
+            {%- endif -%}
+            {%- if section.settings.about_img_2 != blank -%}
+              <figure class="jl-about__img">
+                {{ section.settings.about_img_2 | image_url: width: 1600 | image_tag: loading: 'lazy', alt: section.settings.about_img_2_alt }}
+              </figure>
+            {%- endif -%}
+            {%- if section.settings.about_img_3 != blank -%}
+              <figure class="jl-about__img">
+                {{ section.settings.about_img_3 | image_url: width: 1600 | image_tag: loading: 'lazy', alt: section.settings.about_img_3_alt }}
+              </figure>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+
+        <!-- вращалка с сохранением пробелов -->
+        <div class="jl-rotator">
+          <svg viewBox="0 0 200 200" class="jl-rotator__svg" aria-hidden="true">
+            <defs>
+              <path id="jlCircle" d="M 100,100 m -80,0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0" />
+            </defs>
+            <text dy="5" class="jl-rotator__text" xml:space="preserve">
+              <textPath href="#jlCircle">{{ section.settings.rotating_text | replace: ' ', '&nbsp;' }}</textPath>
+            </text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRODUCT GRID ===== -->
+    <section class="jl-grid">
+      <div class="jl-grid__head">
+        <h3>{{ section.settings.grid_heading }}</h3>
+        <input id="jlFilter" class="jl-input" type="search" placeholder="{{ section.settings.filter_placeholder }}" />
+      </div>
+      <div
+        id="jlGrid"
+        class="jl-grid__items"
+    
+        data-endpoint="{% if section.settings.collection %}{{ section.settings.collection.url }}/products.json{% endif %}"
+
+        data-currency="{{ shop.currency }}"
+        data-csv="{{ section.settings.csv_url | escape }}">
+        <div class="jl-grid__empty">Loading…</div>
+      </div>
+    </section>
+
+  </div>
+
+  <style>
+    .jl{--max:1440px}
+    .jl__inner{max-width:var(--max);margin:0 auto;display:grid;gap:64px;padding:0}
+
+    /* HERO */
+    .jl-slider{position:relative;width:100%}
+    .jl-slider__track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;overflow:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth}
+    .jl-slide{position:relative;scroll-snap-align:start;height:560px}
+    .jl-slide img{width:100%;height:100%;object-fit:cover;display:block}
+    .jl-bc{position:absolute;top:18px;left:24px;z-index:2;color:#fff;font-size:16px}
+    .jl-bc a{color:#fff;text-decoration:none;opacity:.9}
+    .jl-bc__sep{margin:0 10px;opacity:.8}
+    .jl-slider__nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+    .jl-prev{left:16px}.jl-next{right:24px}
+    .jl-dots{position:absolute;left:24px;bottom:24px;display:flex;gap:12px}
+    .jl-dot{width:14px;height:14px;border-radius:50%;border:2px solid #fff;background:transparent;opacity:.95}
+    .jl-dot.is-active{background:#fff}
+    .jl-slide__caption{position:absolute;left:16px;bottom:16px;background:rgba(0,0,0,.55);color:#fff;padding:8px 12px;border-radius:12px}
+
+    /* OUR JEWELRY фон */
+    .jl-about{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);height:650px;background:linear-gradient(180deg,#D6F1FA 0%,#C5EAF6 100%);overflow:hidden}
+    .jl-diag{--diag-w:1311px;--diag-h:590px;--diag-left:274px;--diag-top:240px;--soft:22px;--opacity:.18;
+      position:absolute;left:calc(var(--diag-left) - var(--soft));top:calc(var(--diag-top) - var(--soft));
+      width:calc(var(--diag-w) + var(--soft)*2);height:calc(var(--diag-h) + var(--soft)*2);
+      transform:skewY(-18deg);transform-origin:left top;background:linear-gradient(180deg,rgba(197,234,246,.85) 0%,rgba(122,177,194,.85) 70%);
+      filter:blur(var(--soft));opacity:var(--opacity);pointer-events:none;z-index:1}
+    .jl-about__layout{position:absolute;top:100px;left:75px;right:0;bottom:120px;display:grid;grid-template-columns:520px 1fr;grid-template-rows:auto 1fr;column-gap:30px;z-index:2}
+    .jl-about__text{grid-column:1;grid-row:1;width:520px}
+    .jl-h2{margin:0 0 12px;font-size:56px;line-height:1.1}
+    .jl-lead{margin:0;font-size:18px;line-height:1.6}
+    .jl-about__media{grid-column:2;grid-row:1 / span 2;display:grid;grid-auto-flow:column;grid-template-columns:300px 300px 300px;gap:30px;align-items:end;justify-self:start;height:100%}
+    .jl-about__img{width:300px;height:430px;overflow:hidden}
+    .jl-about__img img{width:100%;height:100%;object-fit:cover;display:block}
+    @media (min-width:1200px){.jl-about__media{--peek:150px;justify-self:end;transform:translateX(var(--peek))}}
+    .jl-rotator{grid-column:1;grid-row:2;align-self:end;width:160px;height:160px}
+    .jl-rotator__svg{width:100%;height:100%;animation:jl-spin 12s linear infinite}
+    .jl-rotator__text{font:12px/1.2 ui-sans-serif,system-ui,Segoe UI,Roboto,Inter}
+    @keyframes jl-spin{to{transform:rotate(360deg)}}
+
+    /* GRID */
+    .jl-grid__head{display:flex;justify-content:space-between;align-items:center}
+    .jl-grid__head h3{margin:8px 0 16px;font-size:36px}
+    .jl-input{border:1px solid #e5e7eb;border-radius:999px;padding:12px 18px;min-width:260px;font-size:16px}
+    .jl-grid__items{display:grid;gap:32px;grid-template-columns:repeat(4,1fr)}
+    @media (max-width:1000px){.jl-grid__items{grid-template-columns:repeat(2,1fr)}}
+    .jl-card{position:relative}
+    .jl-card__media{display:block;aspect-ratio:4/3;overflow:hidden;border-radius:6px}
+    .jl-card__media img{width:100%;height:100%;object-fit:cover;display:block;transform:translateZ(0)}
+    .jl-badge{position:absolute;top:12px;left:12px;background:#111;color:#fff;font-size:12px;padding:6px 10px;border-radius:6px}
+    .jl-card__body{padding:10px 4px 0}
+    .jl-card__title{margin:8px 0 6px;font-size:18px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .jl-price{opacity:.75;font-size:16px}
+    .jl-add{margin-top:10px;padding:10px 14px;border:1px solid #111;border-radius:999px;background:#111;color:#fff;cursor:pointer}
+    .jl-grid__empty{opacity:.7}
+  </style>
+
+ <script>
+/* ===== HERO slider (изолирован, чтобы не мешал гриду даже при ошибке) */
+(() => {
+  try{
+    const track = document.getElementById('jlTrack');
+    const dotsWrap = document.getElementById('jlDots');
+    if(!track) return;
+
+    const prev = document.querySelector('.jl-prev');
+    const next = document.querySelector('.jl-next');
+    const move = dir => track.scrollBy({ left: dir * track.clientWidth, behavior:'smooth' });
+    prev && prev.addEventListener('click', ()=> move(-1));
+    next && next.addEventListener('click', ()=> move(1));
+
+    function updateNavVisibility(){
+      const max = track.scrollWidth - track.clientWidth - 1;
+      prev && (prev.style.display = track.scrollLeft <= 0 ? 'none' : 'block');
+      next && (next.style.display = track.scrollLeft >= max ? 'none' : 'block');
+    }
+
+    if(dotsWrap){
+      const slides = Array.from(track.children);
+      dotsWrap.innerHTML = slides.map((_,i)=>`<button class="jl-dot${i===0?' is-active':''}" data-i="${i}" aria-label="Go to slide ${i+1}"></button>`).join('');
+      dotsWrap.addEventListener('click', e=>{
+        const b = e.target.closest('.jl-dot'); if(!b) return;
+        track.scrollTo({ left: Number(b.dataset.i)*track.clientWidth, behavior:'smooth' });
+      });
+      track.addEventListener('scroll', ()=>{
+        const i = Math.round(track.scrollLeft/track.clientWidth);
+        dotsWrap.querySelectorAll('.jl-dot').forEach((d,idx)=> d.classList.toggle('is-active', idx===i));
+        updateNavVisibility();
+      });
+    }
+    window.addEventListener('resize', updateNavVisibility);
+    updateNavVisibility();
+  }catch(e){ console.warn('Slider init skipped:', e); }
+})();
+
+/* ===== PRODUCTS GRID (жестко и автономно) */
+(async () => {
+  const grid = document.getElementById('jlGrid');
+  if(!grid){ console.warn('[JL] #jlGrid not found'); return; }
+
+  const endpoint = grid.dataset.endpoint || '';
+  const currency = grid.dataset.currency || 'USD';
+  const fmt = (p)=> new Intl.NumberFormat(undefined,{style:'currency',currency}).format(Number(p));
+
+  const esc = s => (s||'').replace(/[&<>\"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const isBest = tags => String(tags||'').toLowerCase().includes('best');
+
+  function render(list){
+    if(!list.length){ grid.innerHTML = '<div class="jl-grid__empty">No products.</div>'; return; }
+    grid.innerHTML = list.map(p=>`
+      <article class="jl-card">
+        <a class="jl-card__media" href="${p.url}">
+          ${p.image ? `<img src="${p.image}" alt="${esc(p.title)}" loading="lazy">` : ''}
+        </a>
+        ${isBest(p.tags) ? `<span class="jl-badge">Best seller</span>` : ``}
+        <div class="jl-card__body">
+          <h4 class="jl-card__title"><a href="${p.url}">${esc(p.title)}</a></h4>
+          <div class="jl-price">${p.price ? fmt(p.price) : ''}</div>
+          ${p.variantId ? `<button class="jl-add" data-variant="${p.variantId}">Add to cart</button>` : ``}
+        </div>
+      </article>
+    `).join('');
+  }
+
+  try{
+    if(!endpoint){
+      grid.innerHTML = '<div class="jl-grid__empty">Choose a collection in the section settings.</div>';
+      return;
+    }
+
+    // 1) тянем JSON
+    const res = await fetch(endpoint, { credentials:'same-origin' });
+    const data = await res.json();
+    const products = Array.isArray(data?.products) ? data.products : [];
+    if(!products.length){ grid.innerHTML = '<div class="jl-grid__empty">Collection is empty.</div>'; return; }
+
+    // 2) высчитываем максимальную цену по вариантам и берём топ-4
+    const prepared = products.map(p=>{
+      const variants = Array.isArray(p.variants) ? p.variants : [];
+      const maxPrice = variants.length ? Math.max(...variants.map(v=> Number(v.price)||0)) : 0;
+      const firstAvail = variants.find(v=> v.available) || variants[0];
+      return {
+        id:p.id,
+        title:p.title,
+        handle:p.handle,
+        url:`/products/${p.handle}`,
+        image:(p.images && p.images[0] && (p.images[0].src || p.images[0].url)) || null,
+        tags:p.tags || '',
+        price:maxPrice,
+        variantId:firstAvail ? firstAvail.id : null
+      };
+    })
+    .sort((a,b)=> b.price - a.price)
+    .slice(0,4);
+
+    render(prepared);
+
+    // 3) фильтр по заголовку
+    const filter = document.getElementById('jlFilter');
+    filter && filter.addEventListener('input', e=>{
+      const q = (e.target.value||'').toLowerCase();
+      const list = q ? prepared.filter(p=> p.title.toLowerCase().includes(q)) : prepared;
+      render(list);
+    });
+
+    // 4) добавление в корзину
+    grid.addEventListener('click', async (e)=>{
+      const btn = e.target.closest('.jl-add'); if(!btn) return;
+      const id = btn.dataset.variant; if(!id) return;
+      try{
+        btn.disabled = true;
+        await fetch('/cart/add.js', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ items:[{ id:Number(id), quantity:1 }] })
+        });
+        btn.textContent = 'Added ✓';
+        setTimeout(()=>{ btn.textContent='Add to cart'; btn.disabled = false; }, 1500);
+      }catch(err){ btn.disabled = false; alert('Could not add to cart'); }
+    });
+
+    console.log('[JL] Loaded products:', prepared.map(p=>({title:p.title, price:p.price})));
+  }catch(err){
+    console.error('[JL] Grid error:', err);
+    grid.innerHTML = '<div class="jl-grid__empty">Couldn’t load products.</div>';
+  }
+})();
+</script>
+
+  {% schema %}
+  {
+    "name": "Jewelry Landing",
+    "settings": [
+      { "type": "collection", "id": "collection", "label": "Products collection" },
+
+      { "type": "text", "id": "about_heading", "label": "About heading", "default": "Our jewelry" },
+      { "type": "textarea", "id": "about_copy", "label": "About copy", "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nUt tempor tincidunt posuere.\nNam tempus, leo ac tempus hendrerit." },
+
+      { "type": "image_picker", "id": "about_img_1", "label": "About image 1" },
+      { "type": "text", "id": "about_img_1_alt", "label": "About image 1 alt", "default": "Image 1" },
+      { "type": "image_picker", "id": "about_img_2", "label": "About image 2" },
+      { "type": "text", "id": "about_img_2_alt", "label": "About image 2 alt", "default": "Image 2" },
+      { "type": "image_picker", "id": "about_img_3", "label": "About image 3" },
+      { "type": "text", "id": "about_img_3_alt", "label": "About image 3 alt", "default": "Image 3" },
+
+      { "type": "text", "id": "rotating_text", "label": "Rotating text", "default": "We’re the bestie you can be yourself with • " },
+
+      { "type": "text", "id": "grid_heading", "label": "Grid heading", "default": "Shop the collection" },
+      { "type": "text", "id": "filter_placeholder", "label": "Filter placeholder", "default": "Filter by title" },
+
+      { "type": "url", "id": "csv_url", "label": "CSV URL (optional) – upload to Content → Files and paste the link here" }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          { "type": "image_picker", "id": "image", "label": "Image" },
+          { "type": "text", "id": "alt", "label": "Alt text" },
+          { "type": "text", "id": "caption", "label": "Caption" }
+        ]
+      },
+      {
+        "type": "about_image",
+        "name": "About image",
+        "settings": [
+          { "type": "image_picker", "id": "image", "label": "Image" },
+          { "type": "text", "id": "alt", "label": "Alt text" }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Jewelry Landing", "category": "Custom" }]
+  }
+  {% endschema %}
+</section>

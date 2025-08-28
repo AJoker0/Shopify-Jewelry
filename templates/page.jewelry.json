@@ -1,0 +1,107 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "blocks": {
+        "image_9CnGAQ": {
+          "type": "image",
+          "name": "t:names.image",
+          "disabled": true,
+          "settings": {
+            "link": "",
+            "image_ratio": "adapt",
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "image_9CnGAQ"
+      ],
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "color_scheme": "",
+        "padding-block-start": 40,
+        "padding-block-end": 80
+      }
+    },
+    "jewelry_landing_TbgVpm": {
+      "type": "jewelry-landing",
+      "blocks": {
+        "slide_WwafFM": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/f0ec6aa9b0c51cc30d3f52535c8fd34642534fd7.jpg",
+            "alt": "",
+            "caption": ""
+          }
+        },
+        "slide_paWXy6": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/sun.jpg",
+            "alt": "",
+            "caption": ""
+          }
+        },
+        "slide_Be6tMm": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/32834961-F036-4F4E-844C-9421D11BAF02__38837.1556506279.1280.1280.jpg",
+            "alt": "",
+            "caption": "Best seller"
+          }
+        }
+      },
+      "block_order": [
+        "slide_WwafFM",
+        "slide_paWXy6",
+        "slide_Be6tMm"
+      ],
+      "custom_css": [],
+      "name": "Jewelry Landing",
+      "settings": {
+        "collection": "necklaces",
+        "about_heading": "Our jewelry",
+        "about_copy": "Lorem ipsum dolor sit amet, \nconsectetur adipiscing elit. Ut tempor\ntincidunt posuere. Nam tempus, leo ac\n tempus hendrerit.",
+        "about_img_1": "shopify://shop_images/1423706919dca430c5fe92d0720f0b2bdc4e88bd.jpg",
+        "about_img_1_alt": "",
+        "about_img_2": "shopify://shop_images/f672a8bf26d779366513d68e95afe32afcf12e83.jpg",
+        "about_img_2_alt": "",
+        "about_img_3": "shopify://shop_images/85beb805518cb119076b686261c2cf7f020adedb.jpg",
+        "about_img_3_alt": "",
+        "rotating_text": "W  e  ’ r  e     t  h  e    b  e  s  t   i  e     y  o  u   c  a  n   b  e  y  o  u  r  s  e   l   f   w i t h.",
+        "grid_heading": "Shop the collection",
+        "filter_placeholder": "Filter by title",
+        "csv_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "jewelry_landing_TbgVpm"
+  ]
+}
