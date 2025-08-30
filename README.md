@@ -1,29 +1,47 @@
 # Horizon (Shopify) — Jewelry Landing
 
-Кастомизации темы **Horizon** для лендинга ювелирных изделий.  
-Проект выполнен с использованием **Shopify Online Store 2.0**, Liquid-шаблонов и визуального редактора.
-
-![Preview](docs/screenshot.png) <!-- добавь скрин, если захочешь -->
+Customization of the Horizon theme for a jewelry landing page.
+The project is built using Shopify Online Store 2.0, Liquid templates, and the visual editor.
 
 ---
 
-## 🚀 Функционал и кастомизации
-- **Hero-слайдер** с изображениями и заголовками.
-- **Секции "About"** с текстом, изображениями и alt-тегами.
-- Адаптивная типографика и базовые стили.
-- Настройки через **schema** (доступны в админке Shopify).
-- Использование **JSON templates** для лендинга.
+## 🚀 Features & Customization
+
+-**Hero slider** with images and headlines.
+
+-**About section** with text, images, and alt attributes.
+
+-**Adaptive typography** and base styles.
+
+-Configurable via **schema settings** (available in the Shopify admin).
+
+-**JSON templates** for landing page structure.
+
+-**Responsive layout** optimized for desktop & mobile.
 
 ---
 
-## 🛠️ Технологии
-- **Shopify Theme (Horizon)**
-- **Liquid**
-- **JSON Templates / Sections**
-- **CSS**
-- Online Store Editor
+🛠️ Technologies
+
+Shopify Theme (Horizon)
+
+Liquid
+
+JSON Templates / Sections
+
+CSS
+
+Shopify Online Store Editor
 
 ---
+
+**Notes**
+
+This project was developed as part of a front-end test task.
+
+The landing page is assigned to the Jewelry page template (/pages/jewelry).
+
+Styling values (margins, font sizes, colors) follow the Figma design specification.
 
 ## 🔧 Локальный запуск
 <img width="1280" height="705" alt="зображення" src="https://github.com/user-attachments/assets/d4b773d3-bd7d-4d7f-87ba-e9e102328044" />
